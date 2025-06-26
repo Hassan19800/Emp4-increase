@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>زيادة الموظفين المخاطبين وغير المخاطبين في يوليو 2025</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            direction: rtl;
+            background-color: #f0f4f7;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 60%;
+            margin: auto;
+            text-align: right;
+        }
+        h1 {
+            text-align: center;
+            color: #005f7f;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin: 12px 0 5px;
+            font-size: 16px;
+            color: #333;
+        }
+        select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            margin: 6px 0 15px 0;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+        select:focus, input[type="text"]:focus {
+            border-color: #005f7f;
+            outline: none;
+        }
+        .bold-text, .total-increase-text, .total-deductions-text, .net-increase-section {
+            font-size: 20px;
+            font-weight: bold;
+            color: #004d66;
+            margin-top: 18px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .total-deductions-text, .net-increase-section {
+            color: #e74c3c;
+        }
+        .result {
+            text-align: center;
+            font-size: 20px;
+            color: #333;
+            margin-top: 10px;
+        }
+        .deductions-text, .insurance-text, .stamp-text, .tax-text {
+            font-size: 16px;
+            font-weight: normal;
+            text-align: right;
+            margin-top: 12px;
+            color: #555;
+        }
+        .net-increase-text {
+            font-size: 18px;
+            font-weight: bold;
+            color: #e74c3c;
+            margin-top: 20px;
+            text-align: center;
+        }
+        .total-increase-text {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 18px;
+            color: #0099cc;
+        }
+        input[type="text"][disabled] {
+            background-color: #f0f4f7;
+            cursor: not-allowed;
+        }
+        .image-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .image-container img {
+            width: 150px;
+            height: auto;
+            display: block;
+            margin: 0 auto;
+        }
+        .text-below-logo {
+            text-align: center;
+            font-size: 18px;
+            color: #333;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .text-below-logo p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- إضافة الصورة -->
+        <div class="image-container">
+            <img src="90.png" alt="Logo">
+        </div>
+
+        <!-- نص أسفل الصورة -->
+        <div class="text-below-logo">
+            <p>Hassan Abo Elhassan</p>
+            <p>هدية من قناة حسن أبو الحسن على اليوتيوب</p>
+        </div>
+
+        <h1>زيادة الموظفين المخاطبين وغير المخاطبين في يوليو 2025</h1>
+
+        <!-- خانة اختيار المخاطبين بقانون الخدمة المدنية -->
+        <label for="employeeStatus">هل الموظف من المخاطبين بقانون الخدمة المدنية؟</label>
+        <select id="employeeStatus" name="employeeStatus" onchange="updateFieldName(); calculateIncrease()">
+            <option value="mukhatab">مخاطب</option>
+            <option value="ghairMukhatab">غير مخاطب</option>
+        </select>
+
+        <!-- خانة تعتمد على الاختيار -->
+        <label id="dynamicLabel" for="salaryField">الأجر الوظيفي</label>
+        <input type="text" id="salaryField" name="salaryField" placeholder="أدخل الأجر الوظيفي أو الأجر الأساسي" oninput="calculateIncrease()"/>
+
+        <!-- نص اجمالي الزيادات -->
+        <div class="bold-text">زيادات في يوليو 2025</div>
+
+        <!-- خانة العلاوة (دورية أو خاصة) -->
+        <label id="allowanceLabel" for="allowanceField">علاوة دورية</label>
+        <input type="text" id="allowanceField" name="allowanceField" placeholder="علاوة دورية أو خاصة" disabled />
+
+        <!-- خانة الحافز الإضافي -->
+        <label for="bonusField">الحافز الإضافي</label>
+        <input type="text" id="bonusField" name="bonusField" placeholder="الحافز الإضافي" disabled />
+
+        <!-- خانة إجمالي زيادات يوليو 2025 -->
+        <label for="totalIncreaseField" class="total-increase-text">إجمالي زيادات يوليو 2025</label>
+        <input type="text" id="totalIncreaseField" name="totalIncreaseField" placeholder="إجمالي زيادات يوليو 2025" disabled />
+
+        <!-- نص الاستقطاعات -->
+        <div class="deductions-text">الاستقطاعات</div>
+
+        <!-- خانة حصص تأمينات الموظف 11% -->
+        <label for="insuranceField" class="insurance-text">حصص تأمينات الموظف 11%</label>
+        <input type="text" id="insuranceField" name="insuranceField" placeholder="حصص تأمينات الموظف 11%" disabled />
+
+        <!-- خانة الدمغة النسبية -->
+        <label for="stampField" class="stamp-text">الدمغة النسبية</label>
+        <input type="text" id="stampField" name="stampField" placeholder="الدمغة النسبية" disabled />
+
+        <!-- خانة ضريبة كسب العمل -->
+        <label for="taxField" class="tax-text">ضريبة كسب العمل</label>
+        <input type="text" id="taxField" name="taxField" placeholder="ضريبة كسب العمل" disabled />
+
+        <!-- خانة إجمالي الاستقطاعات -->
+        <label for="totalDeductionsField" class="total-deductions-text">إجمالي الاستقطاعات</label>
+        <input type="text" id="totalDeductionsField" name="totalDeductionsField" placeholder="إجمالي الاستقطاعات" disabled />
+
+        <!-- نص صافي الزيادة في يوليو 2025 -->
+        <div class="net-increase-section">صافي الزيادة في يوليو 2025</div>
+
+        <!-- خانة صافي الزيادة -->
+        <label for="netIncreaseField" class="net-increase-text">صافي الزيادة</label>
+        <input type="text" id="netIncreaseField" name="netIncreaseField" placeholder="صافي الزيادة" disabled />
+    </div>
+
+    <script>
+        // دالة لتغيير النص في الخانة اعتمادًا على اختيار المستخدم
+        function updateFieldName() {
+            const status = document.getElementById("employeeStatus").value;
+            const label = document.getElementById("dynamicLabel");
+            const field = document.getElementById("salaryField");
+            const allowanceLabel = document.getElementById("allowanceLabel");
+
+            if (status === "mukhatab") {
+                label.textContent = "الأجر الوظيفي";
+                field.placeholder = "أدخل الأجر الوظيفي";
+                allowanceLabel.textContent = "علاوة دورية 10%";
+            } else {
+                label.textContent = "الأجر الأساسي";
+                field.placeholder = "أدخل الأجر الأساسي";
+                allowanceLabel.textContent = "علاوة خاصة 15%";
+            }
+        }
+
+        // دالة لحساب الزيادة تلقائيًا
+        function calculateIncrease() {
+            const salary = parseFloat(document.getElementById("salaryField").value);
+            const status = document.getElementById("employeeStatus").value;
+
+            // التأكد من أن المستخدم قد أدخل قيمة صحيحة
+            if (isNaN(salary) || salary <= 0) {
+                document.getElementById("bonusField").value = 0;
+                document.getElementById("allowanceField").value = 0;
+                document.getElementById("insuranceField").value = 0;
+                document.getElementById("stampField").value = 0;
+                document.getElementById("taxField").value = 0;
+                document.getElementById("totalDeductionsField").value = 0;
+                document.getElementById("totalIncreaseField").value = 0;
+                document.getElementById("netIncreaseField").value = 0;
+                return;
+            }
+
+            let allowanceAmount = 0;
+
+            if (status === "mukhatab") {
+                // علاوة دورية 10% للمخاطبين
+                allowanceAmount = salary * 0.10;
+            } else {
+                // علاوة خاصة 15% لغير المخاطبين
+                allowanceAmount = salary * 0.15;
+            }
+
+            // ضبط العلاوة بحد أدنى 150
+            if (allowanceAmount < 150) {
+                allowanceAmount = 150;
+            }
+
+            // حساب الحافز الإضافي
+            let bonusAmount = 0;
+            if (!isNaN(salary) && salary > 0) {
+                bonusAmount = 700;
+            }
+
+            // حساب حصص تأمينات الموظف 11%
+            const insuranceAmount = Math.ceil((allowanceAmount + bonusAmount) * 0.11 * 100) / 100;
+
+            // حساب الدمغة النسبية
+            const stampAmount = ((allowanceAmount + bonusAmount - insuranceAmount) * 0.008).toFixed(2);
+
+            // حساب ضريبة كسب العمل
+            let taxableAmount = allowanceAmount + bonusAmount - insuranceAmount - stampAmount;
+            let taxAmount = 0;
+
+             if (taxableAmount <= 794.5) {
+                taxAmount = taxableAmount * 0.07;
+            } else if (taxableAmount <= 816.3) {
+                taxAmount = taxableAmount * 0.10;
+            } else if (taxableAmount <= 843) {
+                taxAmount = taxableAmount * 0.13;
+            } else if (taxableAmount <= 927) {
+                taxAmount = taxableAmount * 0.15;
+            } else {
+                taxAmount = taxableAmount * 0.20;
+            }
+
+            // حساب إجمالي الاستقطاعات
+            const totalDeductions = insuranceAmount + parseFloat(stampAmount) + taxAmount;
+
+            // حساب إجمالي زيادات يوليو 2025
+            const totalIncrease = allowanceAmount + bonusAmount;
+
+            // حساب صافي الزيادة
+            const netIncrease = totalIncrease - totalDeductions;
+
+            // تحديث النتائج في الخانات
+            document.getElementById("allowanceField").value = allowanceAmount.toFixed(2);
+            document.getElementById("bonusField").value = bonusAmount.toFixed(2);
+            document.getElementById("totalIncreaseField").value = totalIncrease.toFixed(2);
+            document.getElementById("insuranceField").value = insuranceAmount.toFixed(2);
+            document.getElementById("stampField").value = stampAmount;
+            document.getElementById("taxField").value = taxAmount.toFixed(2);
+            document.getElementById("totalDeductionsField").value = totalDeductions.toFixed(2);
+            document.getElementById("netIncreaseField").value = netIncrease.toFixed(2);
+        }
+    </script>
+</body>
+</html>
